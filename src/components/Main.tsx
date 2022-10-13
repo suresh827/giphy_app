@@ -4,10 +4,13 @@ import { getGifBySearchTerm, getTrendingGifs } from "../services/GiphyService";
 import "./Main.css";
 import ResultsList from "./ResultsList";
 import SearchForm from "./SearchForm";
+import { useSearchParams } from "react-router-dom";
 
 const Main = () => {
   const [gifs, setGifs] = useState<Gif[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  //const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get("q");
   useEffect(() => {
     if (searchTerm) {
       getGifBySearchTerm(searchTerm).then((response) => {
@@ -22,7 +25,7 @@ const Main = () => {
 
   return (
     <div className="Main">
-      <SearchForm onFormSubmit={setSearchTerm} />
+      <SearchForm /*onFormSubmit={setSearchTerm}*/ />
       <ResultsList gifs={gifs} />
     </div>
   );
